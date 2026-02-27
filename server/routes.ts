@@ -7,6 +7,7 @@ import multer from "multer";
 import fs from "fs";
 import path from "path";
 import express from "express";
+import { healthCheck } from "./health";
 
 const uploadsDir = path.join(process.cwd(), 'uploads');
 if (!fs.existsSync(uploadsDir)) {
@@ -126,6 +127,9 @@ export async function registerRoutes(
   } catch (e) {
     console.log("Error seeding database:", e);
   }
+
+  // Health check endpoint for Railway
+  app.get('/api/health', healthCheck);
 
   return httpServer;
 }
