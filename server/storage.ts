@@ -1,38 +1,88 @@
-import { type User, type InsertUser } from "@shared/schema";
-import { randomUUID } from "crypto";
-
-// modify the interface with any CRUD methods
-// you might need
+import { db } from "./db";
+import {
+  candidates,
+  documents,
+  analyses,
+  type InsertCandidate,
+  type InsertDocument,
+  type InsertAnalysis,
+  type CandidateWithAnalysis
+} from "@shared/schema";
+import { eq, desc } from "drizzle-orm";
 
 export interface IStorage {
-  getUser(id: string): Promise<User | undefined>;
-  getUserByUsername(username: string): Promise<User | undefined>;
-  createUser(user: InsertUser): Promise<User>;
+  getCandidates(): Promise<CandidateWithAnalysis[]>;
+  getCandidate(id: number): Promise<CandidateWithAnalysis | undefined>;
+  createCandidate(candidate: InsertCandidate): Promise<number>;
+  createDocument(document: InsertDocument): Promise<number>;
+  createAnalysis(analysis: InsertAnalysis): Promise<void>;
+  getDocument(id: number): Promise<typeof documents.$inferSelect | undefined>;
 }
 
-export class MemStorage implements IStorage {
-  private users: Map<string, User>;
-
-  constructor() {
-    this.users = new Map();
+export class DatabaseStorage implements IStorage {
+  async getCandidates(): Promise<CandidateWithAnalysis[]> {
+    const rows = await db.select().from(candidates).orderBy(desc(candidates.id));
+    
+    const result: CandidateWithAnalysis[] = [];
+    for (const row of rows) {
+      const docs = await db.select().from(documents).where(eq(documents.candidateId, row.id));
+      const doc = docs[0] || null;
+      
+      let analysis = null;
+      if (doc) {
+        const analysisRows = await db.select().from(analyses).where(eq(analyses.documentId, doc.id));
+        analysis = analysisRows[0] || null;
+      }
+      
+      result.push({
+        ...row,
+        document: doc,
+        analysis,
+      });
+    }
+    
+    return result;
   }
 
-  async getUser(id: string): Promise<User | undefined> {
-    return this.users.get(id);
+  async getCandidate(id: number): Promise<CandidateWithAnalysis | undefined> {
+    const rows = await db.select().from(candidates).where(eq(candidates.id, id));
+    if (rows.length === 0) return undefined;
+    
+    const row = rows[0];
+    const docs = await db.select().from(documents).where(eq(documents.candidateId, row.id));
+    const doc = docs[0] || null;
+    
+    let analysis = null;
+    if (doc) {
+      const analysisRows = await db.select().from(analyses).where(eq(analyses.documentId, doc.id));
+      analysis = analysisRows[0] || null;
+    }
+    
+    return {
+      ...row,
+      document: doc,
+      analysis,
+    };
   }
 
-  async getUserByUsername(username: string): Promise<User | undefined> {
-    return Array.from(this.users.values()).find(
-      (user) => user.username === username,
-    );
+  async createCandidate(candidate: InsertCandidate): Promise<number> {
+    const [inserted] = await db.insert(candidates).values(candidate).returning({ id: candidates.id });
+    return inserted.id;
   }
 
-  async createUser(insertUser: InsertUser): Promise<User> {
-    const id = randomUUID();
-    const user: User = { ...insertUser, id };
-    this.users.set(id, user);
-    return user;
+  async createDocument(document: InsertDocument): Promise<number> {
+    const [inserted] = await db.insert(documents).values(document).returning({ id: documents.id });
+    return inserted.id;
+  }
+
+  async createAnalysis(analysis: InsertAnalysis): Promise<void> {
+    await db.insert(analyses).values(analysis);
+  }
+
+  async getDocument(id: number): Promise<typeof documents.$inferSelect | undefined> {
+    const rows = await db.select().from(documents).where(eq(documents.id, id));
+    return rows[0] || undefined;
   }
 }
 
-export const storage = new MemStorage();
+export const storage = new DatabaseStorage();

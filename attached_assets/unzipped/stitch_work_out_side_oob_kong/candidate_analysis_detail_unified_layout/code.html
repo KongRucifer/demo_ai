@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+
+<html class="light" lang="th"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#ec5b13",
+                        "background-light": "#f8f6f6",
+                        "background-dark": "#221610",
+                    },
+                    fontFamily: {
+                        "display": ["Public Sans", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Public Sans', sans-serif; }
+        .score-gradient {
+            background: conic-gradient(from 0deg, #ec5b13 var(--score), transparent var(--score));
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen"><aside class="fixed left-0 top-0 h-full w-64 bg-white dark:bg-background-dark border-r border-slate-200 dark:border-slate-800 flex flex-col z-[60]">
+<div class="p-6 flex items-center gap-3 text-primary">
+<div class="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
+<span class="material-symbols-outlined text-white text-xl">rocket_launch</span>
+</div>
+<h2 class="text-slate-900 dark:text-white text-lg font-bold leading-tight">Smart ATS</h2>
+</div>
+<nav class="flex-1 px-4 py-4 flex flex-col gap-2">
+<a class="flex items-center gap-3 px-4 py-3 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-xl transition-all" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-semibold text-sm">แดชบอร์ด</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 bg-primary/10 text-primary rounded-xl transition-all" href="#">
+<span class="material-symbols-outlined">group</span>
+<span class="font-bold text-sm">รายชื่อผู้สมัคร</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-xl transition-all" href="#">
+<span class="material-symbols-outlined">analytics</span>
+<span class="font-semibold text-sm">การวิเคราะห์</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-xl transition-all" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-semibold text-sm">การตั้งค่า</span>
+</a>
+</nav>
+<div class="p-4 border-t border-slate-200 dark:border-slate-800 flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-slate-200 overflow-hidden">
+<img alt="Admin Avatar" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA-dVD5ECX2xEdVlO70a5g7efGOL-7ClI_KOGdDLkgQ438daVP8pr98sbEML42yG2ZPI4OFBJrcWoKpQobGo0UwyWwIMlZs32Q13lH-sKP_XsFkaYaS8oni2XYZ0YG2H3Zl7T7lIl8G4JEi7oshCPDsFwN1iIyYap_o9095u0x1fKNZQFyLbUjBmFCNi6mYcOSJKSg5a4kXP_E3oo9ddAjB54fUi2d6IWubRHd7douPVfQjikN2NHkB--b9fk-0X9drn-iJUCKPqw"/>
+</div>
+<div>
+<p class="text-xs font-bold text-slate-900 dark:text-white">HR Manager</p>
+<p class="text-[10px] text-slate-500">Admin Account</p>
+</div>
+</div>
+</aside>
+<!-- Top Navigation Bar -->
+<header class="sticky top-0 z-50 w-full border-b border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-background-dark/80 backdrop-blur-md px-6 py-3 flex items-center justify-between pl-72">
+<div class="flex items-center gap-4 w-full max-w-2xl">
+<div class="relative flex-1">
+<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
+<span class="material-symbols-outlined text-sm">search</span>
+</div>
+<input class="block w-full pl-10 pr-3 py-2 border-none bg-slate-100 dark:bg-slate-800 rounded-lg focus:ring-2 focus:ring-primary text-sm placeholder-slate-400 transition-all" placeholder="ค้นหาชื่อผู้สมัครหรือทักษะ..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<button class="p-2 text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full transition-colors relative">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-2.5 right-2.5 w-2 h-2 bg-primary rounded-full border-2 border-white dark:border-background-dark"></span>
+</button>
+<div class="h-6 w-[1px] bg-slate-200 dark:border-slate-800"></div>
+<button class="flex items-center gap-2 bg-primary text-white px-4 py-2 rounded-lg font-bold text-sm hover:brightness-110 transition-all shadow-sm">
+<span class="material-symbols-outlined text-lg">add</span>
+            เพิ่มประกาศงาน
+        </button>
+</div>
+</header>
+<main class="ml-64 p-8 max-w-[calc(100vw-16rem)]">
+<!-- Breadcrumbs & Header -->
+<div class="mb-8 flex flex-col md:flex-row md:items-end justify-between gap-4">
+<div>
+<nav class="flex items-center gap-2 text-sm text-slate-500 mb-2">
+<a class="hover:text-primary" href="#">หน้าหลัก</a>
+<span class="material-symbols-outlined text-xs">chevron_right</span>
+<a class="hover:text-primary" href="#">ผู้สมัครงาน</a>
+<span class="material-symbols-outlined text-xs">chevron_right</span>
+<span class="text-slate-900 dark:text-white font-medium">รายละเอียดการวิเคราะห์</span>
+</nav>
+<div class="flex items-center gap-4">
+<h1 class="text-3xl font-black text-slate-900 dark:text-white tracking-tight">สมชาย ใจดี</h1>
+<span class="px-3 py-1 bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400 text-xs font-bold rounded-full border border-green-200 dark:border-green-800">แนะนำ</span>
+</div>
+<p class="text-slate-600 dark:text-slate-400 mt-1 flex items-center gap-2">
+<span class="material-symbols-outlined text-lg">work</span>
+                    ตำแหน่ง: Senior Software Engineer (Indigo Project)
+                </p>
+</div>
+<div class="flex gap-3">
+<button class="flex-1 md:flex-none px-6 py-2.5 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-white rounded-xl font-bold text-sm hover:bg-slate-50 dark:hover:bg-slate-700 transition-all flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-lg">download</span>
+                    ดาวน์โหลด PDF
+                </button>
+<button class="flex-1 md:flex-none px-6 py-2.5 bg-primary text-white rounded-xl font-bold text-sm hover:brightness-110 shadow-lg shadow-primary/20 transition-all flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-lg">mail</span>
+                    ติดต่อผู้สมัคร
+                </button>
+</div>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+<!-- Left Side: Resume PDF Previewer (Mockup) -->
+<div class="lg:col-span-7 bg-white dark:bg-slate-900 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800 overflow-hidden flex flex-col h-[800px]">
+<div class="bg-slate-50 dark:bg-slate-800/50 px-4 py-3 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-red-500">picture_as_pdf</span>
+<span class="text-sm font-semibold text-slate-700 dark:text-slate-300">Resume_Somchai_Fullstack.pdf</span>
+</div>
+<div class="flex items-center gap-4 text-slate-500">
+<button class="material-symbols-outlined hover:text-primary">zoom_in</button>
+<button class="material-symbols-outlined hover:text-primary">zoom_out</button>
+<div class="h-4 w-[1px] bg-slate-300"></div>
+<button class="material-symbols-outlined hover:text-primary">print</button>
+</div>
+</div>
+<div class="flex-1 overflow-y-auto p-12 bg-slate-200 dark:bg-slate-950/50 flex justify-center">
+<!-- Resume Paper Mockup -->
+<div class="w-full max-w-[600px] bg-white shadow-xl min-h-[900px] p-10 flex flex-col gap-6 text-slate-800">
+<div class="border-b-4 border-primary pb-6">
+<h2 class="text-3xl font-bold">SOMCHAI JAIDEE</h2>
+<p class="text-primary font-bold tracking-widest uppercase">Senior Software Engineer</p>
+</div>
+<div class="grid grid-cols-3 gap-8">
+<div class="col-span-1 flex flex-col gap-6">
+<section>
+<h3 class="text-xs font-bold text-slate-400 uppercase tracking-tighter mb-2">ข้อมูลติดต่อ</h3>
+<p class="text-sm">Bangkok, Thailand</p>
+<p class="text-sm">somchai.j@email.com</p>
+<p class="text-sm">081-234-5678</p>
+</section>
+<section>
+<h3 class="text-xs font-bold text-slate-400 uppercase tracking-tighter mb-2">ทักษะ</h3>
+<ul class="text-sm list-disc list-inside space-y-1">
+<li>JavaScript/TypeScript</li>
+<li>React &amp; Next.js</li>
+<li>Node.js</li>
+<li>PostgreSQL</li>
+<li>Docker &amp; K8s</li>
+</ul>
+</section>
+</div>
+<div class="col-span-2 flex flex-col gap-6">
+<section>
+<h3 class="text-xs font-bold text-slate-400 uppercase tracking-tighter mb-2">ประวัติการทำงาน</h3>
+<div class="mb-4">
+<p class="font-bold text-sm">Lead Developer @ Tech Innovate</p>
+<p class="text-xs text-slate-500 italic">2020 - ปัจจุบัน</p>
+<p class="text-sm mt-1">นำทีมพัฒนาระบบ Cloud-native สถาปัตยกรรม Microservices สำหรับลูกค้ากลุ่ม Enterprise...</p>
+</div>
+<div class="mb-4">
+<p class="font-bold text-sm">Fullstack Engineer @ Global Solutions</p>
+<p class="text-xs text-slate-500 italic">2017 - 2020</p>
+<p class="text-sm mt-1">ดูแลส่วนการพัฒนา Backend ด้วย Node.js และ Frontend ด้วย React.js...</p>
+</div>
+</section>
+<section>
+<h3 class="text-xs font-bold text-slate-400 uppercase tracking-tighter mb-2">การศึกษา</h3>
+<p class="font-bold text-sm">วิทยาศาสตรบัณฑิต (วิทยาการคอมพิวเตอร์)</p>
+<p class="text-xs text-slate-500">มหาวิทยาลัยเทคโนโลยีพระจอมเกล้า</p>
+</section>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Side: AI Analysis Panel -->
+<div class="lg:col-span-5 flex flex-col gap-6">
+<!-- Matching Score Section -->
+<div class="bg-white dark:bg-slate-900 p-6 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800">
+<div class="flex items-center justify-between mb-6">
+<h3 class="text-lg font-bold flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">analytics</span>
+                            AI Match Score
+                        </h3>
+<span class="text-primary font-black text-2xl tracking-tighter">92%</span>
+</div>
+<div class="flex items-center gap-6">
+<div class="relative w-24 h-24 flex items-center justify-center">
+<svg class="w-full h-full rotate-[-90deg]" viewbox="0 0 36 36">
+<circle class="stroke-slate-100 dark:stroke-slate-800" cx="18" cy="18" fill="none" r="16" stroke-width="4"></circle>
+<circle class="stroke-primary" cx="18" cy="18" fill="none" r="16" stroke-dasharray="92, 100" stroke-linecap="round" stroke-width="4"></circle>
+</svg>
+<span class="absolute text-xl font-bold">92</span>
+</div>
+<div class="flex-1">
+<p class="text-sm text-slate-600 dark:text-slate-400 mb-2 leading-relaxed">ผู้สมัครมีความเหมาะสมสูงมากในด้านทักษะทางเทคนิค (Hard Skills) และประสบการณ์ที่ตรงกับความต้องการของ Indigo Project</p>
+<div class="flex gap-2">
+<span class="bg-primary/10 text-primary text-[10px] font-bold px-2 py-0.5 rounded uppercase">High Potential</span>
+<span class="bg-blue-100 text-blue-600 dark:bg-blue-900/30 dark:text-blue-400 text-[10px] font-bold px-2 py-0.5 rounded uppercase">Fullstack Specialist</span>
+</div>
+</div>
+</div>
+</div>
+<!-- AI Summary Card -->
+<div class="bg-primary/5 dark:bg-primary/10 p-6 rounded-2xl border border-primary/20">
+<div class="flex items-center gap-2 mb-4">
+<span class="material-symbols-outlined text-primary fill-1">auto_awesome</span>
+<h3 class="text-lg font-bold text-slate-900 dark:text-white">AI สรุปใจความสำคัญ</h3>
+</div>
+<p class="text-slate-700 dark:text-slate-300 text-sm leading-relaxed">
+                        สมชายเป็น Senior Developer ที่มีประสบการณ์โดดเด่นในการพัฒนาโปรเจกต์ขนาดใหญ่ (Scalable systems) มีความเชี่ยวชาญทั้งการวางโครงสร้าง Database และการออกแบบ UI ที่ซับซ้อน จากประวัติการทำงานมีการเลื่อนตำแหน่งอย่างรวดเร็ว สะท้อนถึงความเป็นผู้นำและศักยภาพในการเรียนรู้ เหมาะสมอย่างยิ่งสำหรับบทบาท Lead ภายในโปรเจกต์ Indigo
+                    </p>
+</div>
+<!-- Extracted Skills -->
+<div class="bg-white dark:bg-slate-900 p-6 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800">
+<h3 class="text-lg font-bold flex items-center gap-2 mb-4">
+<span class="material-symbols-outlined text-primary">psychology</span>
+                        ทักษะที่ตรวจพบ (Extracted Skills)
+                    </h3>
+<div class="flex flex-wrap gap-2">
+<!-- Skills Tags -->
+<span class="px-3 py-1.5 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 rounded-lg text-xs font-bold border border-slate-200 dark:border-slate-700 hover:border-primary transition-colors cursor-default">React.js</span>
+<span class="px-3 py-1.5 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 rounded-lg text-xs font-bold border border-slate-200 dark:border-slate-700 hover:border-primary transition-colors cursor-default">Next.js</span>
+<span class="px-3 py-1.5 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 rounded-lg text-xs font-bold border border-slate-200 dark:border-slate-700 hover:border-primary transition-colors cursor-default">TypeScript</span>
+<span class="px-3 py-1.5 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 rounded-lg text-xs font-bold border border-slate-200 dark:border-slate-700 hover:border-primary transition-colors cursor-default">Node.js (NestJS)</span>
+<span class="px-3 py-1.5 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 rounded-lg text-xs font-bold border border-slate-200 dark:border-slate-700 hover:border-primary transition-colors cursor-default">Docker</span>
+<span class="px-3 py-1.5 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 rounded-lg text-xs font-bold border border-slate-200 dark:border-slate-700 hover:border-primary transition-colors cursor-default">Kubernetes</span>
+<span class="px-3 py-1.5 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 rounded-lg text-xs font-bold border border-slate-200 dark:border-slate-700 hover:border-primary transition-colors cursor-default">AWS</span>
+<span class="px-3 py-1.5 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 rounded-lg text-xs font-bold border border-slate-200 dark:border-slate-700 hover:border-primary transition-colors cursor-default">PostgreSQL</span>
+<span class="px-3 py-1.5 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 rounded-lg text-xs font-bold border border-slate-200 dark:border-slate-700 hover:border-primary transition-colors cursor-default">Agile/Scrum</span>
+<span class="px-3 py-1.5 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 rounded-lg text-xs font-bold border border-slate-200 dark:border-slate-700 hover:border-primary transition-colors cursor-default">System Design</span>
+</div>
+</div>
+<!-- Raw Text OCR (Collapsible) -->
+<details class="bg-white dark:bg-slate-900 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800 overflow-hidden group">
+<summary class="p-6 flex items-center justify-between cursor-pointer list-none">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-slate-400 group-open:text-primary transition-colors">description</span>
+<h3 class="text-lg font-bold">ข้อความดิบจากการวิเคราะห์ (Raw Text)</h3>
+</div>
+<span class="material-symbols-outlined transition-transform group-open:rotate-180">expand_more</span>
+</summary>
+<div class="px-6 pb-6 pt-0">
+<div class="bg-slate-50 dark:bg-slate-950 p-4 rounded-xl border border-slate-100 dark:border-slate-800 text-[11px] font-mono text-slate-500 max-h-48 overflow-y-auto leading-relaxed">
+                            SOMCHAI JAIDEE Senior Software Engineer CONTACT Bangkok, Thailand somchai.j@email.com 081-234-5678 SKILLS JavaScript/TypeScript React &amp; Next.js Node.js PostgreSQL Docker &amp; K8s EXPERIENCE Lead Developer @ Tech Innovate 2020 - Present Led the development of cloud-native microservices architecture for enterprise clients. Managed a team of 10 developers... Fullstack Engineer @ Global Solutions 2017 - 2020 Responsible for backend development with Node.js and frontend with React.js... EDUCATION Bachelor of Science (Computer Science) King Mongkut's University of Technology.
+                        </div>
+</div>
+</details>
+</div>
+</div>
+</main>
+<!-- Floating Footer Action for Mobile -->
+<div class="fixed bottom-0 left-0 right-0 p-4 bg-white/80 dark:bg-background-dark/80 backdrop-blur-md border-t border-slate-200 dark:border-slate-800 md:hidden flex gap-3 z-40">
+<button class="flex-1 px-6 py-3 bg-primary text-white rounded-xl font-bold text-sm shadow-lg shadow-primary/20">ติดต่อผู้สมัคร</button>
+<button class="px-3 py-3 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-white rounded-xl">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</div>
+</body></html>
